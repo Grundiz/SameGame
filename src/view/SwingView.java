@@ -13,6 +13,7 @@ public class SwingView extends JFrame implements GameObserver {
         this.model = model;
 
         panel = new BoardPanel();
+        panel.addMouseListener(new MouseInputStrategy(model)); // Gör det möjligt att använda musen
         add(panel);
 
         setTitle("SameGame");
