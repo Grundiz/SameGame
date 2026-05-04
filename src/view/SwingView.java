@@ -48,7 +48,8 @@ public class SwingView extends JFrame implements GameObserver {
                 for (int j = 0; j < cols; j++) {
 
                     int value = board[i][j];
-
+                    
+                    if (value == -1) continue;  
                     if (value == 0) g.setColor(Color.RED);
                     if (value == 1) g.setColor(Color.BLUE);
                     if (value == 2) g.setColor(Color.GREEN);
