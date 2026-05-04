@@ -3,6 +3,7 @@ package view;
 import javax.swing.*;
 import java.awt.*;
 import model.SameGameModel;
+import controller.MouseInputStrategy;
 
 public class SwingView extends JFrame implements GameObserver {
 
