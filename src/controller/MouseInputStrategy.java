@@ -1,19 +1,40 @@
 package controller;
 
-public class MouseInputStrategy extends JPanel {
-    private int row, col;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.JPanel;
+import model.SameGameModel;
 
-public mouseClicked(int row, int col) {
-        this.row = row;   //ska checka vilken box man klickar på
-        this.col = col;
-        
-        addMouseListener(new MouseAdapter() {   //Gör så att den kollar efter musen
-          public void mouseClicked(MouseEvent e) {
-          public void mouseClicked(MouseEvent e) {
+public class MouseInputStrategy extends MouseAdapter {
 
-        GameController.removeBlocks(); // ska 
+    private SameGameModel model;
 
-         }
-       );
+    public MouseInputStrategy(SameGameModel model) {
+        this.model = model;
     }
- }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+        JPanel panel = (JPanel) e.getComponent(); 
+
+        int x = e.getX();
+        int y = e.getY();
+
+        int[][] board = model.getBoard();
+        int rows = board.length;
+        int cols = board[0].length;
+
+        int cellSize = Math.min(panel.getWidth() / cols, panel.getHeight() / rows);
+
+        int offsetX = (panel.getWidth() - cols * cellSize) / 2;
+        int offsetY = (panel.getHeight() - rows * cellSize) / 2;
+
+        int col = (x - offsetX) / cellSize;
+        int row = (y - offsetY) / cellSize;
+
+        if (col >= 0 && col < cols && row >= 0 && row < rows) {
+            model.removeBlock(row, col);
+        }
+    }
+}
