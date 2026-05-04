@@ -37,7 +37,12 @@ public class SameGameModel {
             o.update(this);
         }
     }
-
+    public void removeBlock(int rows, int cols) { // tar bort bock, edita sen för att ta bort alla runt platsen
+    if (board[rows][cols] != -1) {   
+        board[rows][cols] = -1;
+        notifyObservers();
+    }
+}
     // test
     public void newGame() {
         generateBoard();
