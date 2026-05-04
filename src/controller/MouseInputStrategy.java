@@ -1,5 +1,5 @@
 package controller;
-
+import Sounds.sounds;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JPanel;
@@ -35,6 +35,7 @@ public class MouseInputStrategy extends MouseAdapter {
 
         if (col >= 0 && col < cols && row >= 0 && row < rows) {
             model.removeBlock(row, col);
+            sounds.playSound("Sounds/place.wav");
         }
     }
 }
