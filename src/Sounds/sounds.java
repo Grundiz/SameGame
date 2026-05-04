@@ -5,7 +5,9 @@ public static void playSound(String path) {   // detta är för enstaka ljud som
         Clip clip = AudioSystem.getClip();
         clip.open(audioIn);
         clip.start();
-    } 
+    } catch (Exception e) {
+            e.printStackTrace();
+        }
 }
 public static void maintheme(String path) {
         try {
@@ -22,6 +24,8 @@ public static void maintheme(String path) {
 
             clip.start();
 
-        } 
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
