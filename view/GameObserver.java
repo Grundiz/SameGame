@@ -1,7 +1,11 @@
 enum GameEvent {
-    MOVE_PLACED,
+    MOVE,
     PIECES_CAPTURED,
-    GAME_WON
+    GAME_WON,
+    ARROW_UP,
+    ARROW_DOWN,
+    ARROW_LEFT,
+    ARROW_RIGHT
 }
 
 interface GameObserver {
@@ -29,16 +33,32 @@ class SoundObserver implements GameObserver {
 
     public void onGameUpdated(GameEvent event) {
         switch (event) {
-            case MOVE_PLACED:
-                CellPanel.playSound("place.wav");
+            case MOVE:
+                Sounds.playSound("place.wav");
                 break;
 
             case PIECES_CAPTURED:
-                CellPanel.playSound("click.wav");
+                Sounds.playSound("click.wav");
                 break;
 
             case GAME_WON:
-                CellPanel.playSound("winner.wav");
+                Sounds.playSound("winner.wav");
+                break;
+                
+            case ARROW_UP:
+                System.out.println("Move up");
+                break;
+                
+            case ARROW_DOWN:
+                System.out.println("Move down");
+                break;
+                
+            case ARROW_LEFT:
+                System.out.println("Move left");
+                break;
+                
+            case ARROW_RIGHT:
+                System.out.println("Move right");
                 break;
         }
     }
