@@ -35,7 +35,7 @@ public class MouseInputStrategy extends MouseAdapter {
 
         if (col >= 0 && col < cols && row >= 0 && row < rows) {
             model.removeBlock(row, col);
-            Sounds.playSound("sounds/place.wav");
+            Sounds.playSound("place.wav");
         }
     }
 }

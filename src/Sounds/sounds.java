@@ -4,15 +4,17 @@ import java.io.File;
 import javax.sound.sampled.*;
 
 public class Sounds {  // den accepterar wav-filer
-public static void playSound(String path) {   // detta är för enstaka ljud som tex move:
+public static void playSound(String path) {
     try {
-        AudioInputStream audioIn = AudioSystem.getAudioInputStream(new File(path));
+        AudioInputStream audioIn = AudioSystem.getAudioInputStream(
+            Sounds.class.getResource("/sounds/" + path)
+        );
         Clip clip = AudioSystem.getClip();
         clip.open(audioIn);
         clip.start();
     } catch (Exception e) {
-            e.printStackTrace();
-        }
+        e.printStackTrace();
+    }
 }
 public static void maintheme(String path) {
         try {
