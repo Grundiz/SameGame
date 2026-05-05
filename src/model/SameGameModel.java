@@ -37,11 +37,38 @@ public class SameGameModel {
             o.update(this);
         }
     }
-    public void removeBlock(int rows, int cols) { // tar bort bock, edita sen för att ta bort alla runt platsen
-    if (board[rows][cols] != -1) {   
-        board[rows][cols] = -1;
-        notifyObservers();
+
+    private void removeGroup(int row, int col, int target) {
+
+        // utanför grid
+        if (row < 0 || row >= board.length || col < 0 || col >= board[0].length) {
+            return;
+        }
+
+        // annan färg eller redan borttagen
+        if (board[row][col] != target) {
+            return;
+        }
+
+        // ta bort
+        board[row][col] = -1;
+
+        // kolla grannar 
+        removeGroup(row + 1, col, target); // ner
+        removeGroup(row - 1, col, target); // upp
+        removeGroup(row, col + 1, target); // höger
+        removeGroup(row, col - 1, target); // vänster
     }
+
+    public void removeBlock(int row, int col) { 
+    int target = board[row][col];
+
+    if (target == -1) return;
+
+    // ta bort hela gruppen
+    removeGroup(row, col, target);
+
+    notifyObservers();
 }
     // test
     public void newGame() {
