@@ -1,7 +1,7 @@
+import Sounds.Sounds;
 import model.SameGameModel;
 import view.ConsoleView;
 import view.SwingView;
-import sounds.Sounds;
 
 public class Main {
     public static void main(String[] args) {

@@ -1,8 +1,8 @@
 package model;
 
+import Sounds.Sounds;
 import java.util.ArrayList;
 import java.util.List;
-
 import view.GameObserver;
 
 public class SameGameModel {
@@ -91,8 +91,107 @@ public class SameGameModel {
 
     removeGroup(row, col, target);
 
+    applyGravity();   //fall ner
+    shiftLeft();      //flytta allt vänster
+
+if (checkvictory()) { //dessa ska ersättas med observers /////
+    System.out.println("You Win!");
+    Sounds.playwin();
+} 
+else if (checkDefeat()) {
+    System.out.println("Game Over!");
+    Sounds.playdefeat();
+}
+
     notifyObservers();
 }
+
+private void shiftLeft() {
+    int rows = board.length;
+    int cols = board[0].length;
+
+    int writeCol = 0;
+
+    for (int col = 0; col < cols; col++) {
+
+
+        boolean hasBlock = false; // För att kolla om en kolumm har ett block kvar
+        for (int row = 0; row < rows; row++) {
+            if (board[row][col] != -1) {
+                hasBlock = true;
+                break;
+            }
+        }
+
+        if (hasBlock) {
+            if (col != writeCol) { 
+                for (int row = 0; row < rows; row++) {
+                board[row][writeCol] = board[row][col];
+                board[row][col] = -1;
+                }
+            }
+
+    writeCol++;
+
+        }
+    }
+}
+
+private void applyGravity() {
+    for (int col = 0; col < board[0].length; col++) {
+
+        int move = board.length - 1;
+
+        for (int row = board.length - 1; row >= 0; row--) {
+            if (board[row][col] != -1) {
+                board[move][col] = board[row][col];
+            if (move != row) {
+            board[row][col] = -1;
+                }
+
+    move--;
+    
+            }
+        }
+    }
+}
+
+private boolean checkDefeat() {
+    int rows = board.length;
+    int cols = board[0].length;
+    if(!checkvictory()){
+    for (int row = 0; row < rows; row++) {
+        for (int col = 0; col < cols; col++) {
+
+            int target = board[row][col];
+
+            if (target == -1) continue;
+
+            boolean[][] visited = new boolean[rows][cols];
+
+            int size = countGroup(row, col, target, visited);
+
+            if (size >= 2) {
+                return false;
+            }
+          }
+        }
+    }
+
+    return true; // inga grupper >= 2 finns
+}
+
+private boolean checkvictory() {
+    for (int row = 0; row < board.length; row++) {
+        for (int col = 0; col < board[0].length; col++) {
+            if (board[row][col] != -1) {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
     public void newGame() {
         generateBoard();
         notifyObservers();

@@ -1,6 +1,6 @@
 package controller;
 
-import sounds.Sounds;
+import Sounds.Sounds;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JPanel;
