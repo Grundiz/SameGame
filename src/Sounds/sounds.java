@@ -1,31 +1,25 @@
 package sounds;
 
-import java.io.File;
 import javax.sound.sampled.*;
 
-public class Sounds {  // den accepterar wav-filer
-public static void playSound(String path) {
-    try {
-        AudioInputStream audioIn = AudioSystem.getAudioInputStream(
-            Sounds.class.getResource("/sounds/" + path)
-        );
-        Clip clip = AudioSystem.getClip();
-        clip.open(audioIn);
-        clip.start();
-    } catch (Exception e) {
-        e.printStackTrace();
+public class Sounds {
+
+    public static void playPlace() {
+        playSound("place.wav");
     }
-}
-public static void maintheme(String path) {
+
+    private static void playSound(String fileName) {
         try {
-            AudioInputStream audioIn = AudioSystem.getAudioInputStream(new File(path));
+            AudioInputStream audioIn = AudioSystem.getAudioInputStream(
+                Sounds.class.getResource("/sounds/" + fileName)
+            );
+
             Clip clip = AudioSystem.getClip();
             clip.open(audioIn);
 
             clip.addLineListener(event -> {
                 if (event.getType() == LineEvent.Type.STOP) {
                     clip.close();
-                    playSound(path);
                 }
             });
 

@@ -1,4 +1,5 @@
 package controller;
+
 import sounds.Sounds;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -16,7 +17,7 @@ public class MouseInputStrategy extends MouseAdapter {
     @Override
     public void mousePressed(MouseEvent e) {
 
-        JPanel panel = (JPanel) e.getComponent(); 
+        JPanel panel = (JPanel) e.getComponent();
 
         int x = e.getX();
         int y = e.getY();
@@ -34,8 +35,11 @@ public class MouseInputStrategy extends MouseAdapter {
         int row = (y - offsetY) / cellSize;
 
         if (col >= 0 && col < cols && row >= 0 && row < rows) {
-            model.removeBlock(row, col);
-            Sounds.playSound("place.wav");
+
+            if (board[row][col] != -1) {
+                model.removeBlock(row, col);
+                Sounds.playPlace();
+            }
         }
     }
 }
