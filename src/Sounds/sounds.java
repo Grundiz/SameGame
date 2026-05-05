@@ -1,9 +1,9 @@
-package Sounds;
+package sounds;
 
 import java.io.File;
 import javax.sound.sampled.*;
 
-public class sounds {  // den accepterar wav-filer
+public class Sounds {  // den accepterar wav-filer
 public static void playSound(String path) {   // detta är för enstaka ljud som tex move:
     try {
         AudioInputStream audioIn = AudioSystem.getAudioInputStream(new File(path));
