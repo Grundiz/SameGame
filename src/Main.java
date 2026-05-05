@@ -1,6 +1,7 @@
 import model.SameGameModel;
 import view.ConsoleView;
 import view.SwingView;
+import sounds.Sounds;
 
 public class Main {
     public static void main(String[] args) {
@@ -14,5 +15,6 @@ public class Main {
         model.addObserver(swing);
 
         model.newGame();
+        Sounds.playMusic();
     }
 }
