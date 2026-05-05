@@ -40,16 +40,14 @@ public class SameGameModel {
 
     private void removeGroup(int row, int col, int target) {
 
-        // utanför grid
         if (row < 0 || row >= board.length || col < 0 || col >= board[0].length) {
             return;
         }
 
-        // annan färg eller redan borttagen
         if (board[row][col] != target) {
             return;
         }
-
+        
         // ta bort
         board[row][col] = -1;
 
@@ -65,13 +63,15 @@ public class SameGameModel {
         if (row < 0 || row >= board.length || col < 0 || col >= board[0].length) {
             return 0;
         }
-        //redan besökt
+        // redan besökt
         if (visited[row][col]) return 0;
-        //fel färg
+
+        // fel färg
         if (board[row][col] != target) return 0;
 
         visited[row][col] = true;
 
+        // räknar denna ruta + alla angränsande rutor med samma färg
         return 1
         + countGroup(row + 1, col, target, visited)
         + countGroup(row - 1, col, target, visited)
@@ -89,12 +89,10 @@ public class SameGameModel {
 
     if (size < 2) return;
 
-    // ta bort hela gruppen
     removeGroup(row, col, target);
 
     notifyObservers();
 }
-    // test
     public void newGame() {
         generateBoard();
         notifyObservers();
